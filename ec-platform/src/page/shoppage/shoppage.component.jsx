@@ -7,7 +7,6 @@ function ShopPage() {
 
     return (
         <div>
-            <h1>Shop page</h1>
             {
                 collections.map(({id, title, items}) => (
                     <CollectionsPreview key={id} title={title} items={items} />
