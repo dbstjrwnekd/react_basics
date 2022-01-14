@@ -5,6 +5,7 @@ import ShopPage from "./page/shoppage/shoppage.component";
 import './App.css';
 
 import Header from "./components/header/header.component";
+import SignInAndSignUpPage from './page/sign-in-and-sign-up-page/sigin-in-and-sign-up-page.component';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/shop' element={<ShopPage />} />
+        <Route path='/signIn' element={<SignInAndSignUpPage />} />
       </Routes>
     </>
   );
