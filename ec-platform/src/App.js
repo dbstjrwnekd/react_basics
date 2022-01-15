@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./page/homepage/homepage.component";
 import ShopPage from "./page/shoppage/shoppage.component";
@@ -6,11 +6,21 @@ import './App.css';
 
 import Header from "./components/header/header.component";
 import SignInAndSignUpPage from './page/sign-in-and-sign-up-page/sigin-in-and-sign-up-page.component';
+import { auth } from "./firebase/firebase.utils";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      setCurrentUser(user);
+      console.log(user);
+    });
+  }, []);
+
   return (
     <>
-      <Header />
+      <Header currentUser={currentUser} />
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/shop' element={<ShopPage />} />
