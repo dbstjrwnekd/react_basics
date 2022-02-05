@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { connect } from "react-redux";
 import HomePage from "./page/homepage/homepage.component";
 import ShopPage from "./page/shoppage/shoppage.component";
 import './App.css';
@@ -9,10 +10,11 @@ import SignInAndSignUpPage from './page/sign-in-and-sign-up-page/sigin-in-and-si
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { onSnapshot } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
+import { setCurrentUser } from "./redux/user/user.actions";
+import SignIn from "./components/sign-in/sign-in.component";
 
-function App() {
-  const [currentUser, setCurrentUser] = useState(null);
-
+function App({currentUser, setCurrentUser}) {
+  console.log(currentUser);
   useEffect(() => {
     const unsubscribeFromAuth = onAuthStateChanged(auth, async userAuth => {
       if(userAuth){
@@ -22,24 +24,31 @@ function App() {
             id: snapShot.id,
             ...snapShot.data()
           });
-
-          console.log(currentUser);
         });
       }
+      setCurrentUser(userAuth);
     });
-    setCurrentUser(null);
+    
   }, []);
 
   return (
     <>
-      <Header currentUser={currentUser} />
+      <Header />
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/shop' element={<ShopPage />} />
-        <Route path='/signIn' element={<SignInAndSignUpPage />} />
+        <Route path='/signIn' element={currentUser ? <Navigate to="/?" /> : <SignInAndSignUpPage />} />
       </Routes>
     </>
   );
 }
 
-export default App;
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+})
+
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
