@@ -12,6 +12,8 @@ import { onSnapshot } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { setCurrentUser } from "./redux/user/user.actions";
 import SignIn from "./components/sign-in/sign-in.component";
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUSer } from "./redux/user/user.selector";
 
 function App({currentUser, setCurrentUser}) {
   console.log(currentUser);
@@ -43,8 +45,8 @@ function App({currentUser, setCurrentUser}) {
   );
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUSer
 })
 
 const mapDispatchToProps = dispatch => ({
