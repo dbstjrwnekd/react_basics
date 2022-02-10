@@ -9,7 +9,7 @@ import { signOut } from 'firebase/auth';
 import './header.styles.scss'
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
-import { selectCurrentUSer, selectCartHidden } from '../../redux/user/user.selector';
+import { selectCurrentUser, selectCartHidden } from '../../redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
 
 function Header({ currentUser, hidden }) {
@@ -38,7 +38,7 @@ function Header({ currentUser, hidden }) {
 }
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUSer,
+    currentUser: selectCurrentUser,
     hidden: selectCartHidden
 });
 
