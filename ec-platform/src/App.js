@@ -13,7 +13,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { setCurrentUser } from "./redux/user/user.actions";
 import SignIn from "./components/sign-in/sign-in.component";
 import { createStructuredSelector } from 'reselect';
-import { selectCurrentUSer } from "./redux/user/user.selector";
+import { selectCurrentUser } from "./redux/user/user.selector";
+import CheckoutPage from "./page/checkout/checkout.component";
 
 function App({currentUser, setCurrentUser}) {
   console.log(currentUser);
@@ -39,6 +40,7 @@ function App({currentUser, setCurrentUser}) {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/shop' element={<ShopPage />} />
+        <Route exact path="/checkout" component={<CheckoutPage />} />
         <Route path='/signIn' element={currentUser ? <Navigate to="/?" /> : <SignInAndSignUpPage />} />
       </Routes>
     </>
@@ -46,7 +48,7 @@ function App({currentUser, setCurrentUser}) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUSer
+  currentUser: selectCurrentUser
 })
 
 const mapDispatchToProps = dispatch => ({
