@@ -11,13 +11,11 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { onSnapshot } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { setCurrentUser } from "./redux/user/user.actions";
-import SignIn from "./components/sign-in/sign-in.component";
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from "./redux/user/user.selector";
 import CheckoutPage from "./page/checkout/checkout.component";
 
 function App({currentUser, setCurrentUser}) {
-  console.log(currentUser);
   useEffect(() => {
     const unsubscribeFromAuth = onAuthStateChanged(auth, async userAuth => {
       if(userAuth){
