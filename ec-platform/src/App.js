@@ -17,6 +17,7 @@ import CheckoutPage from "./page/checkout/checkout.component";
 
 function App({currentUser, setCurrentUser}) {
   useEffect(() => {
+    
     const unsubscribeFromAuth = onAuthStateChanged(auth, async userAuth => {
       if(userAuth){
         const userRef = await createUserProfileDocument(userAuth);
