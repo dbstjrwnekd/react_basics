@@ -7,7 +7,7 @@ import CollectionPage from './collection.component';
 
 const mapStateToProps = createStructuredSelector({
     isLoading: (state) => !selectIsCollectionsLoaded(state)
-});
+}); // git push origin dev first...!!
 
 const CollectionPageContainer = compose(
     connect(mapStateToProps),
